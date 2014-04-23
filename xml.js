@@ -53,4 +53,4 @@ bs['plugin+']( 'method', 'xml', (function(){
 			return p.loadXML(filter(v)), xml0( p, end );
 		};
 	}
-})(), 1.0 );
+})() );

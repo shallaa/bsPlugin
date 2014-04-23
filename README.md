@@ -1,4 +1,0 @@
-bsJSplugin
-==========
-
-bsJS plugin repository

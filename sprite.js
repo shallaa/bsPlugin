@@ -1,4 +1,4 @@
-bs['plugin+']( 'class', 'sprite', function( fn, bs ){
+bs['plugin+']( 'class', 'Sprite', function( fn, clsfn, bs ){
 	var ani, key, ANI;
 	bs.Css('.SPRITE').S( 'overflow', 'hidden', 'display', 'none' ),
 	bs.Css('.SPRITE img').S( 'display', 'block', 'border', 0, 'margin', 0 ),
@@ -58,4 +58,4 @@ bs['plugin+']( 'class', 'sprite', function( fn, bs ){
 			}
 		}
 	};
-}, 1 );
+} );
