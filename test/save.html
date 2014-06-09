@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>jpage - bsJSpluginTest</title>
+<meta name="keywords" content="bs5" />
+<meta name="description" content="bs5 Test suite" />
+<meta charset="utf-8"/>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,target-densitydpi=medium-dpi" />
+<link rel="shortcut icon" href="http://blog.bsidesoft.com/favicon.ico" type="image/x-icon">
+</head>
+<body>
+<div id="stage"></div>
+<div id="result"></div>
+<div id="test"></div>
+<script src="../../bsJS/bsjs.0.4.js"></script>
+<script src="../../bsJSTest/bsTest.js"></script>
+<script src="../../bsJSTest/0.3/printer.js"></script>
+<script>
+bs.debug(1);
+bs.repository( '../../bsJSplugin/' );
+bs.plugin( 'save', 'last' ),
+bs( function(){
+	bsTest.tear( 'save', function(){
+		bs.save( 'savetest1', 12.34 );
+		bs.save( 'savetest2', 'abc' );
+		bs.save( 'savetest3', [1, 2, 3] );
+	});
+	bsTest( 'save number',
+		function(){
+			return bs.save('savetest1');
+		}, '12.34'
+	);
+	bsTest( 'save string',
+		function(){
+			return bs.save('savetest2');
+		}, 'abc'
+	);
+	bsTest( 'save array',
+		function(){
+			return bs.save('savetest3');
+		}, bsTest.ITEM([1,2,3])
+	);
+} );
+</script>
+</body>
+</html>
