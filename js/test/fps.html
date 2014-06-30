@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>xml - bsJSpluginTest</title>
+<meta name="keywords" content="bs5" />
+<meta name="description" content="bs5 Test suite" />
+<meta charset="utf-8"/>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,target-densitydpi=medium-dpi" />
+<link rel="shortcut icon" href="http://blog.bsidesoft.com/favicon.ico" type="image/x-icon">
+<script id="xml" type="text/template"><![CDATA[
+<topics>
+	<volume>
+		<category>cat1</category>
+		<title>title1</title>
+		<time>2013.08.09.</time>
+		<img_list><![CDATA[m/1.png]]></img_list>
+	</volume>
+	<volume>
+		<category>cat2</category>
+		<title>title2</title>
+		<time>2013.10.09.</time>
+		<img_list><![CDATA[m/2.png]]></img_list>
+	</volume>
+</topics>
+]]></script>
+</head>
+<body>
+<div id="result"></div>
+<div id="test"></div>
+<script src="../../bsJS/bsjs.0.4.js"></script>
+<script src="../../bsJSTest/bsTest.js"></script>
+<script src="../../bsJSTest/0.3/printer.js"></script>
+<script>
+bs.debug(1);
+bs.repository( '../../bsJSplugin/' );
+bs.plugin( 'fps', 'last' );
+bs( function(){
+	bsTest.tear( 'fpsSet', function(){
+		bs.fps( document.getElementById('result') );
+	});
+	bsTest( 'fps',
+		function(){
+			var t0 = bs.Dom('#result').S('html');
+			return t0.indexOf('fps(') == 0 && t0.charAt( t0.length - 1 ) == ')';
+		}, true
+	);
+} );
+</script>
+</body>
+</html>
