@@ -1,5 +1,6 @@
 {
 	"0.1":{
+		"type":"method",
 		"uri":"http://projectbs.github.io/bsPlugin/js/plugin/save.0.1.js"
 	}
 }
