@@ -1,0 +1,6 @@
+{
+	"1.6":{
+		"type":"require",
+		"uri":"http://underscorejs.org/underscore-min.js"
+	}
+}
