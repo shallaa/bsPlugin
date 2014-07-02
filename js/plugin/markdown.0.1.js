@@ -83,23 +83,8 @@ var rUrl = /^https?:\/\/[-\w.]+(:[0-9]+)?(\/([\w\/_.#!]*)?)?$/, linkUrls = {}, r
 },
 {r:/^(.*)\n{2}/gm, t:'<p>$1</p>\n'}// p
 ];
-exports.markdown = function(path){
-	var synt, hash, line, lines, t0, i, j;
-	path = path || window.location.href;
-	if( rUrl.test(path) ){
-		if( path.indexOf('#!') < 0 ) throw new Error('hashbang does not exist');
-		t0 = path.split('#!');
-		path = t0[0].substr( 0, path.lastIndexOf('/') + 1 );
-		hash = t0[1];
-	}else{
-		hash = path;
-		path = window.location.href;
-		path = path.substr( 0, path.lastIndexOf('/') + 1 );
-	}
-	t0 = bs.get( null, path + hash ).replace(/\r\n|\r/gm, '\n');
-	for(i = 0; i<synts.length; i++){
-		synt = synts[i];
-		t0 = t0.replace( synt.r, synt.t );
-	}
-	return t0;
+exports.markdown = function(data){
+	var t0, i, j;
+	for( i = 0, j = synts.length ; i < j ; i++ ) t0 = synts[i], data = data.replace( t0.r, t0.t );
+	return data;
 };
