@@ -1,6 +1,7 @@
 // https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
-var rUrl = /^https?:\/\/[-\w.]+(:[0-9]+)?(\/([\w\/_.#!]*)?)?$/, linkUrls = {}, rQuoteHead = /\n>\s/g, synts = [
+var rUrl = /^https?:\/\/[-\w.]+(:[0-9]+)?(\/([\w\/_.#!]*)?)?$/, linkUrls = {}, rQuoteHead = /\n>\s/g, rln = /\n|\r\n|\r/gm,
+synts = [
 {r:/^\[(.*)\]:\s?(.*)\n/gm, t:function( org, k, v ){// linkUrls
 	return linkUrls['"'+k.toLowerCase()+'"'] = v, '';
 }},
@@ -62,6 +63,7 @@ var rUrl = /^https?:\/\/[-\w.]+(:[0-9]+)?(\/([\w\/_.#!]*)?)?$/, linkUrls = {}, r
 ];
 exports.markdown = function(data){
 	var t0, i, j;
+	data = data.replace(rln, '\n');
 	for( i = 0, j = synts.length ; i < j ; i++ ) t0 = synts[i], data = data.replace( t0.r, t0.t );
 	return data;
 };
