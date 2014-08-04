@@ -18,11 +18,12 @@ synts = [
 {r:/^#{1}\s(.*)$/gm, t:'<h1>$1</h1>'},// h1
 {r:/^[-\*_]{3,}$/gm, t:'<hr>'},// hr
 {r:/\*\*(.*)\*\*/gm, t:'<strong>$1</strong>'},// strong
-{r:/^```([\w\W]*)```/gm, t:(function(){
+{r:/^```.*\n([ㄱ-ㅎㅏ-ㅣ가-힣\w\s\*=<>,\.:;~!@#$%^&-+"'\(\)/]*)```$/gm, t:(function(){
 	var re1 = /&/g, re2 = />/g, re3 = /</g,
 		re4 = /"/g, //"
 		re5 = /'/g; //'
 	return function(org, s1){
+		console.log(1,org)
 		return '<pre><code>' + (!s1 ? '' : s1.replace( re1, '&amp;' )
 			.replace( re2, '&gt;' )
 			.replace( re3, '&lt;' )
