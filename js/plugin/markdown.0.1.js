@@ -1,6 +1,7 @@
 // https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
-var rUrl = /^https?:\/\/[-\w.]+(:[0-9]+)?(\/([\w\/_.#!]*)?)?$/, linkUrls = {}, rQuoteHead = /\n>\s/g, synts = [
+var rUrl = /^https?:\/\/[-\w.]+(:[0-9]+)?(\/([\w\/_.#!]*)?)?$/, linkUrls = {}, rQuoteHead = /\n>\s/g, rln = /\n|\r\n|\r/gm,
+synts = [
 {r:/^\[(.*)\]:\s?(.*)\n/gm, t:function( org, k, v ){// linkUrls
 	return linkUrls['"'+k.toLowerCase()+'"'] = v, '';
 }},
@@ -17,6 +18,19 @@ var rUrl = /^https?:\/\/[-\w.]+(:[0-9]+)?(\/([\w\/_.#!]*)?)?$/, linkUrls = {}, r
 {r:/^#{1}\s(.*)$/gm, t:'<h1>$1</h1>'},// h1
 {r:/^[-\*_]{3,}$/gm, t:'<hr>'},// hr
 {r:/\*\*(.*)\*\*/gm, t:'<strong>$1</strong>'},// strong
+{r:/^```.*\n([ㄱ-ㅎㅏ-ㅣ가-힣\w\s\*=<>,\.:;~!@#$%^&\-+"'\(\){}/]*)```$/gm, t:(function(){
+	var re1 = /&/g, re2 = />/g, re3 = /</g,
+		re4 = /"/g, //"
+		re5 = /'/g; //'
+	return function(org, s1){
+		console.log(1,org)
+		return '<pre><code>' + (!s1 ? '' : s1.replace( re1, '&amp;' )
+			.replace( re2, '&gt;' )
+			.replace( re3, '&lt;' )
+			.replace( re4, '&quot;' )
+			.replace( re5, '&apos;' )) + '</code></pre>';
+	}
+})()},// pre, code//"
 {r:/__(.*)__/gm, t:'<strong>$1</strong>'},// strong
 {r:/~~(.*)~~/gm, t:'<del>$1</del>'},// strong
 {r:/_(.*)_/gm, t:'<em>$1</em>'},// em
@@ -62,6 +76,7 @@ var rUrl = /^https?:\/\/[-\w.]+(:[0-9]+)?(\/([\w\/_.#!]*)?)?$/, linkUrls = {}, r
 ];
 exports.markdown = function(data){
 	var t0, i, j;
+	data = data.replace(rln, '\n');
 	for( i = 0, j = synts.length ; i < j ; i++ ) t0 = synts[i], data = data.replace( t0.r, t0.t );
 	return data;
 };
