@@ -96,6 +96,10 @@ exports.markdown = function(data){
 		bs.Dom('<link href="http://alexgorbatchev.com/pub/sh/current/styles/shCore.css" rel="stylesheet" type="text/css" />').S('<', bs.Dom('head')[0]),
 		bs.Dom('<link href="http://alexgorbatchev.com/pub/sh/current/styles/shThemeDefault.css" rel="stylesheet" type="text/css" />').S('<', bs.Dom('head')[0]),
 		resLoaded = 1;
+	}else{
+		setTimeout(function(){
+			SyntaxHighlighter.highlight();
+		}, 500);
 	}
 	return data;
 };
