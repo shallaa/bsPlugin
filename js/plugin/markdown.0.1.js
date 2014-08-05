@@ -81,11 +81,18 @@ synts = [
 exports.markdown = function(data){
 	var t0, i, j;
 	data = data.replace(rln, '\n');
-	for( i = 0, j = synts.length ; i < j ; i++ ) t0 = synts[i], data = data.replace( t0.r, t0.t );
-	if(SyntaxHighlighter && SyntaxHighlighter.highlight){
-		SyntaxHighlighter.config.tagName = 'code', setTimeout(function(){
-			SyntaxHighlighter.highlight();
-		}, 500);
-	}
+	for( i = 0, j = synts.length; i < j; i++ ) t0 = synts[i], data = data.replace( t0.r, t0.t );
+	bs.js(function(){
+			SyntaxHighlighter.config.tagName = 'code', setTimeout(function(){
+				SyntaxHighlighter.highlight();
+			}, 500);
+		},
+		'http://alexgorbatchev.com/pub/sh/current/scripts/shCore.js',
+		'http://alexgorbatchev.com/pub/sh/current/scripts/shBrushJScript.js',
+		'http://alexgorbatchev.com/pub/sh/current/scripts/shBrushPhp.js',
+		'http://alexgorbatchev.com/pub/sh/current/scripts/shBrushXml.js'
+	)
+	bs.Dom('<link href="http://alexgorbatchev.com/pub/sh/current/styles/shCore.css" rel="stylesheet" type="text/css" />').S('<', bs.Dom('head')[0]);
+	bs.Dom('<link href="http://alexgorbatchev.com/pub/sh/current/styles/shThemeDefault.css" rel="stylesheet" type="text/css" />').S('<', bs.Dom('head')[0]);
 	return data;
 };
