@@ -82,7 +82,7 @@ exports.markdown = function(data){
 	var t0, i, j;
 	data = data.replace(rln, '\n');
 	for( i = 0, j = synts.length ; i < j ; i++ ) t0 = synts[i], data = data.replace( t0.r, t0.t );
-	if(SyntaxHighlighter){
+	if(SyntaxHighlighter && SyntaxHighlighter.highlight){
 		SyntaxHighlighter.config.tagName = 'code', setTimeout(function(){
 			SyntaxHighlighter.highlight();
 		}, 500);
