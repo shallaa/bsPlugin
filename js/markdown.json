@@ -1,6 +1,6 @@
 {
 	"0.1":{
 		"type":"method",
-		"uri":"http://projectbs.github.io/bsPlugin/js/plugin/markdown.0.1.js"
+		"uri":"http://127.0.0.1/bsPlugin/js/plugin/markdown.0.1.js"
 	}
 }

@@ -18,19 +18,23 @@ synts = [
 {r:/^#{1}\s(.*)$/gm, t:'<h1>$1</h1>'},// h1
 {r:/^[-\*_]{3,}$/gm, t:'<hr>'},// hr
 {r:/\*\*(.*)\*\*/gm, t:'<strong>$1</strong>'},// strong
-{r:/^```.*\n([ㄱ-ㅎㅏ-ㅣ가-힣\w\s\*=<>,\.:;~!@#$%^&\-+"'\(\){}/]*)```$/gm, t:(function(){
+{r:/```(.*)\n([ㄱ-ㅎㅏ-ㅣ가-힣\w\s\*=<>,\.:;~!@#$%^&\-+"'\(\){}/]*)```$/gm, t:(function(){
 	var re1 = /&/g, re2 = />/g, re3 = /</g,
 		re4 = /"/g, //"
-		re5 = /'/g; //'
-	return function(org, s1){
-		console.log(1,org)
-		return '<pre><code>' + (!s1 ? '' : s1.replace( re1, '&amp;' )
+		re5 = /'/g, //'
+		syntax = {
+			html: 'XML',
+			javascript: 'js',
+			php: 'PHP'
+		};
+	return function(org, s1, s2){
+		return '<pre><code class="' + (syntax[s1] ? 'brush: ' + syntax[s1] : 'brush: js') + '">' + (!s2 ? '' : s2.replace( re1, '&amp;' )
 			.replace( re2, '&gt;' )
 			.replace( re3, '&lt;' )
 			.replace( re4, '&quot;' )
 			.replace( re5, '&apos;' )) + '</code></pre>';
 	}
-})()},// pre, code//"
+})()},// pre, code
 {r:/__(.*)__/gm, t:'<strong>$1</strong>'},// strong
 {r:/~~(.*)~~/gm, t:'<del>$1</del>'},// strong
 {r:/_(.*)_/gm, t:'<em>$1</em>'},// em
@@ -78,5 +82,10 @@ exports.markdown = function(data){
 	var t0, i, j;
 	data = data.replace(rln, '\n');
 	for( i = 0, j = synts.length ; i < j ; i++ ) t0 = synts[i], data = data.replace( t0.r, t0.t );
+	if(SyntaxHighlighter){
+		SyntaxHighlighter.config.tagName = 'code', setTimeout(function(){
+			SyntaxHighlighter.highlight();
+		}, 500);
+	}
 	return data;
 };
