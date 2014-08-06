@@ -94,7 +94,8 @@ exports.markdown = function(data){
 		resLoaded = 1;
 	}else{
 		setTimeout(function(){
-			hljs.initHighlighting();
+			var el = bs.Dom('pre code'), i = el.length;
+			while(i--){hljs.highlightBlock(el[i]);}
 		}, 500);
 	}
 	return data;
