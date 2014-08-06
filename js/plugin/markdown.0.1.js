@@ -23,12 +23,12 @@ synts = [
 		re4 = /"/g, //"
 		re5 = /'/g, //'
 		syntax = {
-			html: 'XML',
+			html: 'html',
 			javascript: 'js',
-			php: 'PHP'
+			php: 'php'
 		};
 	return function(org, s1, s2){
-		return '<pre class="bsmarkdown"><code class="' + (syntax[s1] ? 'brush: ' + syntax[s1] : 'brush: js') + '">' + (!s2 ? '' : s2.replace( re1, '&amp;' )
+		return '<pre class="bsmarkdown"><code class="' + (syntax[s1] || 'js') + '">' + (!s2 ? '' : s2.replace( re1, '&amp;' )
 			.replace( re2, '&gt;' )
 			.replace( re3, '&lt;' )
 			.replace( re4, '&quot;' )
@@ -84,21 +84,17 @@ exports.markdown = function(data){
 	for( i = 0, j = synts.length; i < j; i++ ) t0 = synts[i], data = data.replace( t0.r, t0.t );
 	if(!resLoaded){
 		bs.js(function(){
-				SyntaxHighlighter.config.tagName = 'code', setTimeout(function(){
-					SyntaxHighlighter.highlight();
+				setTimeout(function(){
+					hljs.initHighlighting();
 				}, 500);
 			},
-			'http://alexgorbatchev.com/pub/sh/current/scripts/shCore.js',
-			'http://alexgorbatchev.com/pub/sh/current/scripts/shBrushJScript.js',
-			'http://alexgorbatchev.com/pub/sh/current/scripts/shBrushPhp.js',
-			'http://alexgorbatchev.com/pub/sh/current/scripts/shBrushXml.js'
+			'http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/highlight.min.js'
 		),
-		bs.Dom('<link href="http://alexgorbatchev.com/pub/sh/current/styles/shCore.css" rel="stylesheet" type="text/css" />').S('<', bs.Dom('head')[0]),
-		bs.Dom('<link href="http://alexgorbatchev.com/pub/sh/current/styles/shThemeDefault.css" rel="stylesheet" type="text/css" />').S('<', bs.Dom('head')[0]),
+		bs.Dom('<link href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/styles/default.min.css" rel="stylesheet" type="text/css" />').S('<', bs.Dom('head')[0])
 		resLoaded = 1;
 	}else{
 		setTimeout(function(){
-			SyntaxHighlighter.highlight();
+			hljs.initHighlighting();
 		}, 500);
 	}
 	return data;
