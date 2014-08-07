@@ -31,13 +31,13 @@ synts = [
 		return '<pre class="bsmarkdown"><code class="' + (syntax[s1] || 'js') + '">' + (!s2 ? '' : s2.replace( re1, '&amp;' )
 			.replace( re2, '&gt;' ).replace( re3, '&lt;' ).replace( re4, '&quot;' ).replace( re5, '&apos;' )) + '</code></pre>';
 	}
-})()},// pre, code
+})()},// code
 {r:/```(.*)```/gm, t:(function(){
 	var re1 = /&/g, re2 = />/g, re3 = /</g,
 		re4 = /"/g, //"
 		re5 = /'/g;
 	return function(org, s1){
-		return '<code class="js">' + (!s1 ? '' : s1.replace( re1, '&amp;' )
+		return '<code class="bsmarkdown">' + (!s1 ? '' : s1.replace( re1, '&amp;' )
 			.replace( re2, '&gt;' ).replace( re3, '&lt;' ).replace( re4, '&quot;' ).replace( re5, '&apos;' )) + '</code>';
 	}
 })()},// pre, code
